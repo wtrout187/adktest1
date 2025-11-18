@@ -71,7 +71,7 @@ async def main():
     print("Example 1: Asking about Agent Development Kit")
     print("="*70)
     
-    response = await runner.run_debug(
+    await runner.run_debug(
         "What is Agent Development Kit from Google? What languages is the SDK available in?"
     )
     
@@ -80,14 +80,14 @@ async def main():
     print("Example 2: Asking about current weather")
     print("="*70)
     
-    response = await runner.run_debug("What's the weather in London?")
+    await runner.run_debug("What's the weather in London?")
     
     # Example 3: Your custom question
     print("\n" + "="*70)
     print("Example 3: Custom question - Latest tech news")
     print("="*70)
     
-    response = await runner.run_debug("What are the top tech news stories today?")
+    await runner.run_debug("What are the top tech news stories today?")
     
     print("\n✅ All examples completed!")
     print("\nTip: The agent used Google Search to find current information.")
