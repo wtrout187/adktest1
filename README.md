@@ -11,16 +11,17 @@ This repository is the code bundle I am submitting to the [Kaggle Agents Intensi
 
 ### Visual Flow
 
-```text
-┌──────────┐      ┌───────────────┐      ┌───────────────┐
-│ Phase 1  │ ───▶ │ Phase 2       │ ───▶ │ Phase 3       │
-│ Ingest   │      │ Gap Automation│      │ Microsoft FAB │
-│ ADK/LLM  │      │ Local ADK     │      │ Power Platform│
-└──────────┘      └───────────────┘      └───────────────┘
-		 ▲                    │                        │
-		 │                    ▼                        ▼
-	 OCR +             Persona judge          SharePoint / BI
-	 embeddings        + guardrails           dashboards + flows
+```mermaid
+flowchart LR
+	A[Phase 1 · Ingestion / ADK] --> B[Phase 2 · Gap Automation]
+	B --> C[Phase 3 · Microsoft Fabric]
+	subgraph Details
+		D[OCR + embeddings] --> E[Persona judge + guardrails]
+		E --> F[SharePoint + Power BI surfaces]
+	end
+	A --- D
+	B --- E
+	C --- F
 ```
 
 The codebase contains three complementary implementations of the same workflow:
@@ -51,21 +52,21 @@ All three phases are present in this repo so the Kaggle submission can show end-
 
 ```mermaid
 flowchart LR
-	subgraph Phase1[Phase 1 • Ingestion]
-		A[OCR + chunking] --> B[Legal-BERT embeddings]
-		B --> C[ChromaDB memory]
-	end
-	subgraph Phase2[Phase 2 • Metadata Gap Automation]
-		C --> D[metadata_gap_scanner]
-		D --> E[metadata_gap_runner (ADK persona)]
-		E --> F[Judge + logging]
-	end
-	subgraph Phase3[Phase 3 • Microsoft Fabric]
-		F --> G[SharePoint JSON exports]
-		F --> H[Power BI parquet feeds]
-		H --> I[Executive dashboards]
-		G --> J[Power Automate approvals]
-	end
+  subgraph Phase1[Phase 1 - Ingestion]
+    A[OCR + chunking] --> B[Legal-BERT embeddings]
+    B --> C[ChromaDB memory]
+  end
+  subgraph Phase2[Phase 2 - Metadata Gap Automation]
+    C --> D[metadata_gap_scanner]
+    D --> E[metadata_gap_runner (ADK persona)]
+    E --> F[Judge + logging]
+  end
+  subgraph Phase3[Phase 3 - Microsoft Fabric]
+    F --> G[SharePoint JSON exports]
+    F --> H[Power BI parquet feeds]
+    H --> I[Executive dashboards]
+    G --> J[Power Automate approvals]
+  end
 ```
 
 ---
