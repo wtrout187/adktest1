@@ -52,21 +52,27 @@ All three phases are present in this repo so the Kaggle submission can show end-
 
 ```mermaid
 flowchart LR
-  subgraph Phase1[Phase 1 - Ingestion]
-    A[OCR + chunking] --> B[Legal-BERT embeddings]
-    B --> C[ChromaDB memory]
-  end
-  subgraph Phase2[Phase 2 - Metadata Gap Automation]
-    C --> D[metadata_gap_scanner]
-    D --> E[metadata_gap_runner (ADK persona)]
-    E --> F[Judge + logging]
-  end
-  subgraph Phase3[Phase 3 - Microsoft Fabric]
-    F --> G[SharePoint JSON exports]
-    F --> H[Power BI parquet feeds]
-    H --> I[Executive dashboards]
-    G --> J[Power Automate approvals]
-  end
+	subgraph Phase1["Phase 1 · Ingestion"]
+		A[OCR + chunking]
+		B[Legal-BERT embeddings]
+		C[ChromaDB memory]
+		A --> B --> C
+	end
+	subgraph Phase2["Phase 2 · Metadata Gap Automation"]
+		D[metadata_gap_scanner]
+		E[metadata_gap_runner persona]
+		F[Judge + logging]
+		C --> D --> E --> F
+	end
+	subgraph Phase3["Phase 3 · Microsoft Fabric"]
+		G[SharePoint JSON exports]
+		H[Power BI parquet feeds]
+		I[Executive dashboards]
+		J[Power Automate approvals]
+		F --> G
+		F --> H --> I
+		G --> J
+	end
 ```
 
 ---
